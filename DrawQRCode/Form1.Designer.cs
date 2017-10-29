@@ -1,6 +1,6 @@
 ﻿namespace DrawQRCode
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,12 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.QRCodeDisplay = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.QRCodeDisplay)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // QRCodeDisplay
+            // 
+            this.QRCodeDisplay.Location = new System.Drawing.Point(27, 65);
+            this.QRCodeDisplay.Name = "QRCodeDisplay";
+            this.QRCodeDisplay.Size = new System.Drawing.Size(437, 388);
+            this.QRCodeDisplay.TabIndex = 0;
+            this.QRCodeDisplay.TabStop = false;
+            this.QRCodeDisplay.Click += new System.EventHandler(this.QRCodeDisplay_Click);
+            this.QRCodeDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.QRCodeDisplay_MouseDown);
+            this.QRCodeDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QRCodeDisplay_MouseMove);
+            this.QRCodeDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.QRCodeDisplay_MouseUp);
+            // 
+            // FormMain
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(1036, 608);
+            this.Controls.Add(this.QRCodeDisplay);
+            this.Name = "FormMain";
+            this.Text = "DrawQRCode";
+            this.Load += new System.EventHandler(this.FormMain_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.QRCodeDisplay)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox QRCodeDisplay;
     }
 }
 
