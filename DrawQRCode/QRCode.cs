@@ -16,11 +16,14 @@ namespace DrawQRCode
         public int dim;
         private Bitmap bm;
 
-        public QRCode(PictureBox disp, int dim)
+        public QRCode(PictureBox disp, int dim, bool[,] data = null)
         {
             if (dim > 177 || dim < 21 || dim % 4 != 1)
                 throw new ArgumentOutOfRangeException();
-            data = new bool[dim, dim];
+            if (data != null)
+                this.data = data;
+            else
+                this.data = new bool[dim, dim];
             locked = new bool[dim, dim];
             this.disp = disp;
             this.dim = dim;
@@ -113,8 +116,7 @@ namespace DrawQRCode
 
         public void Draw()
         {
-            if (bm is null)
-                bm = new Bitmap(disp.Width, disp.Height);
+            bm = new Bitmap(disp.Width, disp.Height);
             Graphics g = Graphics.FromImage(bm);
             float bs = (float)1.0 * (bm.Height - 1) / dim;
             g.Clear(Color.White);
@@ -134,11 +136,30 @@ namespace DrawQRCode
                 return false;
             if (locked[x, y])
                 return false;
-            data[x, y] = value;
-            DrawOne(x, y);
-            disp.Image = bm;
+            if (value != data[x, y])
+            {
+                data[x, y] = value;
+                DrawOne(x, y);
+                disp.Image = bm;
+            }
             return true;
         }
 
+        public override string ToString()
+        {
+            string s = "";
+            for (int i = 0; i < dim; i++)
+            {
+                for (int j = 0; j < dim; j++)
+                {
+                    if (data[j, i])
+                        s += 'X';
+                    else
+                        s += '_';
+                }
+                s += Environment.NewLine;
+            }
+            return s;
+        }
     }
 }
